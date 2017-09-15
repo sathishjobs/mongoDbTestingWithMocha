@@ -13,10 +13,14 @@ before((done)=>{
 })
 
 beforeEach((done)=>{
-    // console.log("ddd");
-    // console.log(mongoose.connections.collections.usercols.drop);
-    mongoose.connection.collections.usercols.drop(()=>{
-        // Ready to run the next text!
-        done();
+    const { usercols, comments, blogposts } = mongoose.connection.collections;
+    usercols.drop(()=>{
+        comments.drop(()=>{
+            blogposts.drop(()=>{
+                    // Ready to run the next text!
+                     done();
+            })
+        })
+
     });
 })
